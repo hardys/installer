@@ -63,6 +63,8 @@ type Admin struct {
 type Platform struct {
 	// AWS is the configuration used when installing on AWS.
 	AWS *AWSPlatform `json:"aws,omitempty"`
+	// OpenStack is the configuration used when installing on OpenStack.
+	OpenStack *OpenStackPlatform `json:"openstack,omitempty"`
 	// Libvirt is the configuration used when installing on libvirt.
 	Libvirt *LibvirtPlatform `json:"libvirt,omitempty"`
 }
@@ -106,6 +108,22 @@ type AWSPlatform struct {
 	// VPCCIDRBlock
 	// +optional
 	VPCCIDRBlock string `json:"vpcCIDRBlock"`
+}
+
+// OpenStackPlatform stores all the global configuration that
+// all machinesets use.
+type OpenStackPlatform struct {
+	// Region specifies the OpenStack region where the cluster will be created.
+	Region string `json:"region"`
+
+	// VPCID specifies the vpc to associate with the cluster.
+	// If empty, new vpc will be created.
+	// +optional
+	VPCID string `json:"vpcID"`
+
+	// NetworkCIDRBlock
+	// +optional
+	NetworkCIDRBlock string `json:"NetworkCIDRBlock"`
 }
 
 // LibvirtPlatform stores all the global configuration that

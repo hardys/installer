@@ -17,12 +17,14 @@ import (
 const (
 	// AWSPlatformType is used to install on AWS.
 	AWSPlatformType = "aws"
+	// OpenStackPlatformType is used to install on AWS.
+	OpenStackPlatformType = "openstack"
 	// LibvirtPlatformType is used to install of libvirt.
 	LibvirtPlatformType = "libvirt"
 )
 
 var (
-	validPlatforms = []string{AWSPlatformType, LibvirtPlatformType}
+	validPlatforms = []string{AWSPlatformType, OpenStackPlatformType, LibvirtPlatformType}
 
 	validAWSRegions = map[string]string{
 		"ap-northeast-1": "Tokyo",
@@ -81,6 +83,8 @@ func (a *Platform) Generate(map[asset.Asset]*asset.State) (*asset.State, error) 
 	switch platform {
 	case AWSPlatformType:
 		return a.awsPlatform()
+	case OpenStackPlatformType:
+		return a.openstackPlatform()
 	case LibvirtPlatformType:
 		return a.libvirtPlatform()
 	default:
@@ -186,6 +190,12 @@ func (a *Platform) awsPlatform() (*asset.State, error) {
 			},
 		},
 	}, nil
+}
+
+func (a *Platform) openstackPlatform() (*asset.State, error) {
+	return assetStateForStringContents(
+		OpenStackPlatformType,
+	), nil
 }
 
 func (a *Platform) libvirtPlatform() (*asset.State, error) {
