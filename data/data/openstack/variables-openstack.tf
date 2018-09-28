@@ -21,6 +21,7 @@ EOF
 
 variable "tectonic_openstack_base_image" {
   type        = "string"
+  default     = "rhcos"
   description = "Name of the base image to use for the nodes."
 }
 
