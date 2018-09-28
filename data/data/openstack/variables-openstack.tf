@@ -249,10 +249,10 @@ EOF
 
 variable "tectonic_openstack_etcd_flavor_name" {
   type    = "string"
-  default = "t2.medium"
+  default = "m1.medium"
 
   description = <<EOF
-  Instance size for the etcd node(s). Example: `t2.medium`. Read the [etcd recommended hardware](https://coreos.com/etcd/docs/latest/op-guide/hardware.html) guide for best performance
+  Instance size for the etcd node(s). Example: `m1.medium`. Read the [etcd recommended hardware](https://coreos.com/etcd/docs/latest/op-guide/hardware.html) guide for best performance
   EOF
 }
 
@@ -410,8 +410,8 @@ EOF
 
 variable "tectonic_openstack_master_flavor_name" {
   type        = "string"
-  default     = "t2.medium"
-  description = "Instance size for the master node(s). Example: `t2.medium`."
+  default     = "m1.medium"
+  description = "Instance size for the master node(s). Example: `m1.medium`."
 }
 
 variable "tectonic_openstack_master_iam_role_name" {
@@ -499,8 +499,8 @@ EOF
 
 variable "tectonic_openstack_worker_flavor_name" {
   type        = "string"
-  default     = "t2.medium"
-  description = "Instance size for the worker node(s). Example: `t2.medium`."
+  default     = "m1.medium"
+  description = "Instance size for the worker node(s). Example: `m1.medium`."
 }
 
 variable "tectonic_openstack_worker_iam_role_name" {
