@@ -468,7 +468,7 @@ EOF
 
 variable "tectonic_openstack_region" {
   type        = "string"
-  description = "The target AWS region for the cluster."
+  description = "The target OpenStack region for the cluster."
 }
 
 variable "tectonic_openstack_network_cidr_block" {
