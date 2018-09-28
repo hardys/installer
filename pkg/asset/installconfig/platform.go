@@ -231,10 +231,30 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 	if err != nil {
 		return nil, err
 	}
+	prompt3 := asset.UserProvided{
+		Question: &survey.Question{
+			Prompt: &survey.Select{
+				Message: "Cloud",
+				Help:    "The OpenStack cloud name from clouds.yaml.",
+			},
+			Validate: survey.ComposeValidators(survey.Required, func(ans interface{}) error {
+				//value := ans.(string)
+				//FIXME(russellb) add some validation here
+				return nil
+			}),
+		},
+		EnvVarName: "OPENSHIFT_INSTALL_OPENSTACK_CLOUD",
+	}
+	cloud, err := prompt3.Generate(nil)
+	if err != nil {
+		return nil, err
+	}
+
 	return assetStateForStringContents(
 		OpenStackPlatformType,
 		string(region.Contents[0].Data),
 		string(image.Contents[0].Data),
+		string(cloud.Contents[0].Data),
 	), nil
 }
 
