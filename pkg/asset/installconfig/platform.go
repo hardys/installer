@@ -17,7 +17,7 @@ import (
 const (
 	// AWSPlatformType is used to install on AWS.
 	AWSPlatformType = "aws"
-	// OpenStackPlatformType is used to install on AWS.
+	// OpenStackPlatformType is used to install on OpenStack.
 	OpenStackPlatformType = "openstack"
 	// LibvirtPlatformType is used to install of libvirt.
 	LibvirtPlatformType = "libvirt"
