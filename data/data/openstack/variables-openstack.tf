@@ -14,7 +14,7 @@ variable "tectonic_openstack_config_version" {
   default = "1.0"
 
   description = <<EOF
-(internal) This declares the version of the AWS configuration variables.
+(internal) This declares the version of the OpenStack configuration variables.
 It has no impact on generated assets but declares the version contract of the configuration.
 EOF
 }
