@@ -193,8 +193,30 @@ func (a *Platform) awsPlatform() (*asset.State, error) {
 }
 
 func (a *Platform) openstackPlatform() (*asset.State, error) {
+	prompt := asset.UserProvided{
+		Question: &survey.Question{
+			Prompt: &survey.Select{
+				Message: "Region",
+				Help:    "The OpenStack region to be used for installation.",
+				Default: "regionOne",
+			},
+			Validate: survey.ComposeValidators(survey.Required, func(ans interface{}) error {
+				//value := ans.(string)
+				//FIXME(shardy) add some validation here
+				//OpenStack doesn't have a fixed list of Regions so we can probably only
+				//validate that e.g it's a non-zero length string?
+				return nil
+			}),
+		},
+		EnvVarName: "OPENSHIFT_INSTALL_OPENSTACK_REGION",
+	}
+	region, err := prompt.Generate(nil)
+	if err != nil {
+		return nil, err
+	}
 	return assetStateForStringContents(
 		OpenStackPlatformType,
+		string(region.Contents[0].Data),
 	), nil
 }
 

@@ -143,7 +143,7 @@ func (mao *machineAPIOperator) maoConfig(dependencies map[asset.Asset]*asset.Sta
 		cfg.OpenStack = &openstackConfig{
 			ClusterName: mao.installConfig.Name,
 			ClusterID:   mao.installConfig.ClusterID,
-			Region:      mao.installConfig.Platform.AWS.Region,
+			Region:      mao.installConfig.Platform.OpenStack.Region,
 			Replicas:    int(*mao.installConfig.Machines[1].Replicas),
 		}
 	} else {

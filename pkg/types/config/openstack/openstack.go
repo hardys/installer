@@ -15,7 +15,7 @@ const (
 	// DefaultProfile is the default OpenStack credentials profile to use.
 	DefaultProfile = "default"
 	// DefaultRegion is the default OpenStack region for the cluster.
-	DefaultRegion = "RegionOne"
+	DefaultRegion = "regionOne"
 )
 
 // OpenStack converts OpenStack related config.
