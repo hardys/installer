@@ -81,7 +81,7 @@ EOF
 
 variable "tectonic_openstack_credentials_endpoint_type" {
   type    = "string"
-  default = ""
+  default = "public"
 
   description = <<EOF
 Specify which type of endpoint to use from the service catalog. It can be set using the OS_ENDPOINT_TYPE environment variable. If not set, public endpoints is used.
