@@ -12,8 +12,6 @@ const (
 	EndpointsPublic Endpoints = "public"
 	// DefaultNetworkCIDRBlock is the default CIDR range for an OpenStack network.
 	DefaultNetworkCIDRBlock = "10.0.0.0/16"
-	// DefaultProfile is the default OpenStack credentials profile to use.
-	DefaultProfile = "default"
 	// DefaultRegion is the default OpenStack region for the cluster.
 	DefaultRegion = "regionOne"
 )
@@ -30,7 +28,6 @@ type OpenStack struct {
 	InstallerRole    string            `json:"tectonic_openstack_installer_role,omitempty" yaml:"installerRole,omitempty"`
 	KeyPair          string            `json:"tectonic_openstack_key_pair,omitempty" yaml:"keyPair,omitempty"`
 	Master           `json:",inline" yaml:"master,omitempty"`
-	Profile          string `json:"tectonic_openstack_profile,omitempty" yaml:"profile,omitempty"`
 	Region           string `json:"tectonic_openstack_region,omitempty" yaml:"region,omitempty"`
 	NetworkCIDRBlock string `json:"tectonic_openstack_network_cidr_block,omitempty" yaml:"networkCIDRBlock,omitempty"`
 	Worker           `json:",inline" yaml:"worker,omitempty"`

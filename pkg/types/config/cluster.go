@@ -66,7 +66,6 @@ var defaultCluster = Cluster{
 	},
 	OpenStack: openstack.OpenStack{
 		Endpoints:        openstack.EndpointsAll,
-		Profile:          openstack.DefaultProfile,
 		Region:           openstack.DefaultRegion,
 		NetworkCIDRBlock: openstack.DefaultNetworkCIDRBlock,
 	},

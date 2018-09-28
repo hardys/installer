@@ -461,14 +461,6 @@ Example: `["sg-51530134", "sg-b253d7cc"]`
 EOF
 }
 
-variable "tectonic_openstack_profile" {
-  type = "string"
-
-  description = <<EOF
-(optional) This declares the AWS credentials profile to use.
-EOF
-}
-
 variable "tectonic_openstack_region" {
   type        = "string"
   description = "The target OpenStack region for the cluster."
