@@ -15,11 +15,6 @@ variable "cluster_name" {
   type = "string"
 }
 
-variable "container_images" {
-  type        = "map"
-  description = "Container images to use"
-}
-
 variable "dns_server_ip" {
   type    = "string"
   default = ""

@@ -31,7 +31,7 @@ provider "openstack" {
 }
 
 module "bootstrap" {
-  source = "../../../modules/openstack/bootstrap"
+  source = "./bootstrap"
 
   swift_container   = "${openstack_objectstorage_container_v1.tectonic.name}"
   cluster_name      = "${var.tectonic_cluster_name}"
@@ -43,7 +43,7 @@ module "bootstrap" {
 }
 
 module "masters" {
-  source = "../../../modules/openstack/masters"
+  source = "./masters"
 
   auth_url         = "${var.tectonic_openstack_credentials_auth_url}"
   base_domain      = "${var.tectonic_base_domain}"
@@ -53,7 +53,6 @@ module "masters" {
   cloud            = "${var.tectonic_openstack_credentials_cloud}"
   cluster_id       = "${var.tectonic_cluster_id}"
   cluster_name     = "${var.tectonic_cluster_name}"
-  container_images = "${var.tectonic_container_images}"
   domain_id        = "${var.tectonic_openstack_credentials_domain_id}"
   domain_name      = "${var.tectonic_openstack_credentials_domain_name}"
   endpoint_type    = "${var.tectonic_openstack_credentials_endpoint_type}"
@@ -92,7 +91,7 @@ module "masters" {
 # TODO(shadower) add a dns module here
 
 module "vpc" {
-  source = "../../../modules/openstack/topology"
+  source = "./topology"
 
   auth_url                   = "${var.tectonic_openstack_credentials_auth_url}"
   base_domain                = "${var.tectonic_base_domain}"
