@@ -97,14 +97,8 @@ func (a *installConfig) Generate(dependencies map[asset.Asset]*asset.State) (*as
 			},
 		}
 	case OpenStackPlatformType:
-		region := string(platformState.Contents[1].Data)
-		image := string(platformState.Contents[2].Data)
-		cloud := string(platformState.Contents[3].Data)
-		installConfig.OpenStack = &types.OpenStackPlatform{
-			Region:           region,
-			NetworkCIDRBlock: defaultVPCCIDR,
-			BaseImage:        image,
-			Cloud:            cloud,
+		if err := json.Unmarshal(platformState.Contents[1].Data, &installConfig.OpenStack); err != nil {
+			return nil, err
 		}
 		installConfig.Machines = []types.MachinePool{
 			{

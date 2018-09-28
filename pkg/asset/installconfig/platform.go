@@ -193,6 +193,9 @@ func (a *Platform) awsPlatform() (*asset.State, error) {
 }
 
 func (a *Platform) openstackPlatform() (*asset.State, error) {
+	platform := &types.OpenStackPlatform{
+		NetworkCIDRBlock: defaultVPCCIDR,
+	}
 	prompt := asset.UserProvided{
 		Question: &survey.Question{
 			Prompt: &survey.Select{
@@ -212,6 +215,7 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 	if err != nil {
 		return nil, err
 	}
+	platform.Region = string(region.Contents[0].Data)
 	prompt2 := asset.UserProvided{
 		Question: &survey.Question{
 			Prompt: &survey.Select{
@@ -231,6 +235,7 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 	if err != nil {
 		return nil, err
 	}
+	platform.BaseImage = string(image.Contents[0].Data)
 	prompt3 := asset.UserProvided{
 		Question: &survey.Question{
 			Prompt: &survey.Select{
@@ -249,13 +254,26 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 	if err != nil {
 		return nil, err
 	}
+	platform.Cloud = string(cloud.Contents[0].Data)
 
-	return assetStateForStringContents(
-		OpenStackPlatformType,
-		string(region.Contents[0].Data),
-		string(image.Contents[0].Data),
-		string(cloud.Contents[0].Data),
-	), nil
+	data, err := json.Marshal(platform)
+	if err != nil {
+		return nil, err
+	}
+
+	return &asset.State{
+		Contents: []asset.Content{
+			{
+				Name: "platform",
+				Data: []byte(OpenStackPlatformType),
+			},
+			{
+				Name: "platform.json",
+				Data: data,
+			},
+		},
+	}, nil
+
 }
 
 func (a *Platform) libvirtPlatform() (*asset.State, error) {
