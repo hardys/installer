@@ -124,6 +124,10 @@ type OpenStackPlatform struct {
 	// NetworkCIDRBlock
 	// +optional
 	NetworkCIDRBlock string `json:"NetworkCIDRBlock"`
+
+	// BaseImage
+	// Name of image to use from OpenStack cloud
+	BaseImage string `json:"baseImage"`
 }
 
 // LibvirtPlatform stores all the global configuration that

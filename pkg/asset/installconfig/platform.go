@@ -212,7 +212,7 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 	if err != nil {
 		return nil, err
 	}
-	prompt := asset.UserProvided{
+	prompt2 := asset.UserProvided{
 		Question: &survey.Question{
 			Prompt: &survey.Select{
 				Message: "Image",
@@ -227,7 +227,7 @@ func (a *Platform) openstackPlatform() (*asset.State, error) {
 		},
 		EnvVarName: "OPENSHIFT_INSTALL_OPENSTACK_IMAGE",
 	}
-	image, err := prompt.Generate(nil)
+	image, err := prompt2.Generate(nil)
 	if err != nil {
 		return nil, err
 	}
