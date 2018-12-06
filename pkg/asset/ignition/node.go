@@ -39,3 +39,17 @@ func FileFromBytes(path string, mode int, contents []byte) ignition.File {
 		},
 	}
 }
+
+// FileSymlink creates a symlink from path to target
+func FileSymlink(path string, target string) ignition.Link {
+	return ignition.Link{
+		Node: ignition.Node{
+			Filesystem: "root",
+			Path:       path,
+		},
+		LinkEmbedded1: ignition.LinkEmbedded1{
+			Hard:   false,
+			Target: target,
+		},
+	}
+}

@@ -290,8 +290,11 @@ func (a *Bootstrap) addParentFiles(dependencies asset.Parents) {
 	)
 	a.Config.Storage.Files = append(
 		a.Config.Storage.Files,
-		ignition.FileFromBytes("/etc/kubernetes/kubeconfig", 0600, kubeletKubeconfig.Files()[0].Data),
 		ignition.FileFromBytes("/var/lib/kubelet/kubeconfig", 0600, kubeletKubeconfig.Files()[0].Data),
+	)
+	a.Config.Storage.Links = append(
+		a.Config.Storage.Links,
+		ignition.FileSymlink("/etc/kubernetes/kubeconfig", "/var/lib/kubelet/kubeconfig"),
 	)
 	a.Config.Storage.Files = append(
 		a.Config.Storage.Files,
