@@ -1,6 +1,8 @@
 package ignition
 
 import (
+	"bytes"
+	"compress/gzip"
 	"path/filepath"
 
 	ignition "github.com/coreos/ignition/config/v2_2/types"
@@ -26,6 +28,11 @@ func FileFromString(path string, mode int, contents string) ignition.File {
 
 // FileFromBytes creates an ignition-config file with the given contents.
 func FileFromBytes(path string, mode int, contents []byte) ignition.File {
+	var b bytes.Buffer
+	gz := gzip.NewWriter(&b)
+	gz.Write(contents)
+	gz.Flush()
+	gz.Close()
 	return ignition.File{
 		Node: ignition.Node{
 			Filesystem: "root",
@@ -34,7 +41,8 @@ func FileFromBytes(path string, mode int, contents []byte) ignition.File {
 		FileEmbedded1: ignition.FileEmbedded1{
 			Mode: &mode,
 			Contents: ignition.FileContents{
-				Source: dataurl.EncodeBytes(contents),
+				Compression: "gzip",
+				Source:      dataurl.EncodeBytes(b.Bytes()),
 			},
 		},
 	}
