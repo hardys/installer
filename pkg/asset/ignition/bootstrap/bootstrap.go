@@ -323,11 +323,9 @@ func (a *Bootstrap) addParentFiles(dependencies asset.Parents) {
 		a.Config.Storage.Files = append(a.Config.Storage.Files, ignition.FilesFromAsset(rootDir, 0600, asset)...)
 	}
 
-	etcdClientCertKey := &tls.EtcdClientCertKey{}
-	dependencies.Get(etcdClientCertKey)
-	a.Config.Storage.Files = append(
-		a.Config.Storage.Files,
-		ignition.FileFromBytes("/etc/ssl/etcd/ca.crt", 0600, etcdClientCertKey.Cert()),
+	a.Config.Storage.Links = append(
+		a.Config.Storage.Links,
+		ignition.FileSymlink("/etc/ssl/etcd/ca.crt", "/opt/openshift/tls/etcd-client.crt"),
 	)
 }
 
