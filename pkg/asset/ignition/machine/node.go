@@ -2,6 +2,7 @@ package machine
 
 import (
 	"fmt"
+	"net"
 	"net/url"
 
 	ignition "github.com/coreos/ignition/config/v2_2/types"
@@ -21,7 +22,13 @@ func pointerIgnitionConfig(installConfig *types.InstallConfig, rootCA []byte, ro
 	case baremetaltypes.Name:
 		// Baremetal needs to point directly at the VIP because we don't have a
 		// way to configure DNS before Ignition runs.
-		ignitionHost = fmt.Sprintf("%s:22623", installConfig.BareMetal.APIVIP)
+		parsedIP := net.ParseIP(installConfig.BareMetal.APIVIP)
+		if parsedIP.To4() == nil {
+			// This is an IPv6 address, not IPv4.
+			ignitionHost = fmt.Sprintf("[%s]:22623", installConfig.BareMetal.APIVIP)
+		} else {
+			ignitionHost = fmt.Sprintf("%s:22623", installConfig.BareMetal.APIVIP)
+		}
 	case openstacktypes.Name:
 		apiVIP, err := openstackdefaults.APIVIP(installConfig.Networking)
 		if err == nil {
