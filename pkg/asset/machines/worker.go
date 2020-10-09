@@ -394,9 +394,9 @@ func (w *Worker) Generate(dependencies asset.Parents) error {
 		}
 	}
 
-	data, err := userDataSecret("worker-user-data-managed", wign.File.Data)
+	data, err := userDataMachineConfig("worker-user-data-installer", "worker", wign.File.Data)
 	if err != nil {
-		return errors.Wrap(err, "failed to create user-data secret for worker machines")
+		return errors.Wrap(err, "failed to create user-data MachineConfig for worker machines")
 	}
 	w.UserDataFile = &asset.File{
 		Filename: filepath.Join(directory, workerUserDataFileName),

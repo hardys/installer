@@ -354,9 +354,9 @@ func (m *Master) Generate(dependencies asset.Parents) error {
 		return fmt.Errorf("invalid Platform")
 	}
 
-	data, err := userDataSecret("master-user-data-managed", mign.File.Data)
+	data, err := userDataMachineConfig("master-user-data-installer", "master", mign.File.Data)
 	if err != nil {
-		return errors.Wrap(err, "failed to create user-data secret for master machines")
+		return errors.Wrap(err, "failed to create user-data MachineConfig for master machines")
 	}
 
 	m.UserDataFile = &asset.File{
